@@ -275,7 +275,6 @@ int main(int argc, char** argv)
 
     err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, &ev_gpu);
     checkError(err, "Enqueueing kernels");
-    etime = wtime();
 
     // Wait for the commands to complete before stopping the timer
     err = clFinish(queue_0);
@@ -302,6 +301,7 @@ int main(int argc, char** argv)
     err =
         clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_END, sizeof(gpu_end), &gpu_end, NULL);
     checkError(err, "Getting event info");
+    etime = wtime();
 
     double cpu_time = (double)(cpu_end - cpu_start) * 1e-6;
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;

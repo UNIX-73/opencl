@@ -42,6 +42,8 @@ extern int    output_device_info(cl_device_id);
 #define GPU_LEN (400)
 #define CPU_LEN (LENGTH % GPU_LEN)
 
+_Static_assert(GPU_LEN <= LENGTH, "cannot set a higher value than len");
+
 //------------------------------------------------------------------------------
 //
 // kernel:  vadd
@@ -71,6 +73,7 @@ const char* KernelSource =
 
 int main(int argc, char** argv)
 {
+
     int err; // error code returned from OpenCL calls
 
     float* h_a = (float*)calloc(LENGTH, sizeof(float)); // a vector
@@ -246,9 +249,12 @@ int main(int argc, char** argv)
     d_c1 = clCreateBuffer(context1, CL_MEM_WRITE_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_c1");
 
-    err = clEnqueueWriteBuffer(queue_1, d_a1, CL_TRUE, 0, size1, h_a, 0, NULL, NULL);
+    // I get it from the part where the cpu ends
+    float* ha_1_start = h_a + len0;
+    float* hb_1_start = h_b + len0;
+    err = clEnqueueWriteBuffer(queue_1, d_a1, CL_TRUE, 0, size1, ha_1_start, 0, NULL, NULL);
     checkError(err, "Copying h_a to device at d_a");
-    err = clEnqueueWriteBuffer(queue_1, d_b1, CL_TRUE, 0, size1, h_b, 0, NULL, NULL);
+    err = clEnqueueWriteBuffer(queue_1, d_b1, CL_TRUE, 0, size1, hb_1_start, 0, NULL, NULL);
     checkError(err, "Copying h_b to device at d_b");
 
     err = clSetKernelArg(ko_vadd1, 0, sizeof(cl_mem), &d_a1);

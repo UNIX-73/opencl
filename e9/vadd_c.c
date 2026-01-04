@@ -296,7 +296,7 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    err = clEnqueueReadBuffer(queue_0, d_c0, CL_TRUE, 0, size1, hc_1_start, 0, NULL, NULL);
+    err = clEnqueueReadBuffer(queue_1, d_c1, CL_TRUE, 0, size1, hc_1_start, 0, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         printf("Error: Failed to read output array!\n%s\n", err_code(err));

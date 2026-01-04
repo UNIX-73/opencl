@@ -269,10 +269,7 @@ int main(int argc, char** argv)
     size_t global0 = len0;
     size_t global1 = len1;
 
-    double stime, etime;
-
-    stime = wtime();
-    err   = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, &ev_cpu);
+    err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, &ev_cpu);
     checkError(err, "Enqueueing kernels");
 
     err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, &ev_gpu);
@@ -297,7 +294,6 @@ int main(int argc, char** argv)
     err =
         clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_END, sizeof(gpu_end), &gpu_end, NULL);
     checkError(err, "Getting event info");
-    etime = wtime();
 
     err = clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_START, sizeof(cpu_start), &cpu_start,
                                   NULL);
@@ -308,10 +304,8 @@ int main(int argc, char** argv)
 
     double cpu_time = (double)(cpu_end - cpu_start) * 1e-6;
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;
-    double tot      = etime - stime;
 
-    printf("\nTOTAL: %lf ms\nCPU(%ld): %fms\nGPU(%ld): %fms\n", tot, CPU_LEN, cpu_time, GPU_LEN,
-           gpu_time);
+    printf("CPU(%ld): %fms\nGPU(%ld): %fms\n", CPU_LEN, cpu_time, GPU_LEN, gpu_time);
 
     // Read back the results from the compute device
 

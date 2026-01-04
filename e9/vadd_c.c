@@ -40,7 +40,7 @@ extern int    output_device_info(cl_device_id);
 #define LENGTH (1024) // length of vectors a, b, and c
 
 #define GPU_LEN (400)
-#define CPU_LEN (LENGTH % GPU_LEN)
+#define CPU_LEN (LENGTH - GPU_LEN)
 
 _Static_assert(GPU_LEN <= LENGTH, "cannot set a higher value than len");
 

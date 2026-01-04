@@ -252,6 +252,7 @@ int main(int argc, char** argv)
     // I get it from the part where the cpu ends
     float* ha_1_start = h_a + len0;
     float* hb_1_start = h_b + len0;
+    float* hc_1_start = h_a + len0;
     err = clEnqueueWriteBuffer(queue_1, d_a1, CL_TRUE, 0, size1, ha_1_start, 0, NULL, NULL);
     checkError(err, "Copying h_a to device at d_a");
     err = clEnqueueWriteBuffer(queue_1, d_b1, CL_TRUE, 0, size1, hb_1_start, 0, NULL, NULL);
@@ -264,7 +265,7 @@ int main(int argc, char** argv)
 
     checkError(err, "Setting kernel arguments");
 
-    double rtime = wtime();
+    double stime, stime0, stime1, etime0, etime1;
 
     // Execute the kernel over the entire range of our 1d input data set
     // letting the OpenCL runtime choose the work-group size
@@ -273,6 +274,7 @@ int main(int argc, char** argv)
 
     err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
+
     err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
 
@@ -282,12 +284,19 @@ int main(int argc, char** argv)
     err = clFinish(queue_1);
     checkError(err, "Waiting for kernel to finish");
 
-    rtime = wtime() - rtime;
-    printf("\nThe kernels ran in %lf seconds\n", rtime);
+    stime = wtime() - stime;
+    printf("\nThe kernels ran in %lf seconds\n", stime);
 
-    /*
     // Read back the results from the compute device
-    err = clEnqueueReadBuffer(queue_0, d_c0, CL_TRUE, 0, sizeof(float) * count, h_c, 0, NULL, NULL);
+
+    err = clEnqueueReadBuffer(queue_0, d_c0, CL_TRUE, 0, size0, h_c, 0, NULL, NULL);
+    if (err != CL_SUCCESS)
+    {
+        printf("Error: Failed to read output array!\n%s\n", err_code(err));
+        exit(1);
+    }
+
+    err = clEnqueueReadBuffer(queue_0, d_c0, CL_TRUE, 0, size1, hc_1_start, 0, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         printf("Error: Failed to read output array!\n%s\n", err_code(err));
@@ -298,7 +307,7 @@ int main(int argc, char** argv)
     correct = 0;
     float tmp;
 
-    for (i = 0; i < count; i++)
+    for (i = 0; i < LENGTH; i++)
     {
         tmp = h_a[i] + h_b[i];     // assign element i of a+b to tmp
         tmp -= h_c[i];             // compute deviation of expected and output result
@@ -311,7 +320,7 @@ int main(int argc, char** argv)
     }
 
     // summarise results
-    printf("C = A+B:  %d out of %d results were correct.\n", correct, count);
+    printf("C = A+B:  %d out of %d results were correct.\n", correct, LENGTH);
 
     // cleanup then shutdown
     clReleaseMemObject(d_a0);
@@ -325,6 +334,5 @@ int main(int argc, char** argv)
     free(h_a);
     free(h_b);
     free(h_c);
-*/
     return 0;
 }

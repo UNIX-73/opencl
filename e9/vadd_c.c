@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 
     unsigned int correct; // number of correct results
 
-    size_t global; // global domain size
+    cl_event ev_cpu, ev_gpu;
 
     cl_context context0;
     cl_context context1;
@@ -109,7 +109,6 @@ int main(int argc, char** argv)
     }
 
     // Set up platform and GPU device
-
     cl_uint num_platforms;
 
     // Find number of platforms
@@ -127,7 +126,6 @@ int main(int argc, char** argv)
     err = clGetPlatformIDs(num_platforms, platforms, NULL);
     checkError(err, "Getting platforms");
 
-    bool secured_cpu = false, secured_gpu = false;
     // Secure a GPU
     cl_device_id   gpu          = NULL;
     cl_platform_id gpu_platform = NULL;
@@ -176,9 +174,9 @@ int main(int argc, char** argv)
     checkError(err, "Creating context");
 
     // Create both queues
-    queue_0 = clCreateCommandQueue(context0, cpu, 0, &err);
+    queue_0 = clCreateCommandQueue(context0, cpu, CL_QUEUE_PROFILING_ENABLE, &err);
     checkError(err, "Creating command queue0");
-    queue_1 = clCreateCommandQueue(context1, gpu, 0, &err);
+    queue_1 = clCreateCommandQueue(context1, gpu, CL_QUEUE_PROFILING_ENABLE, &err);
     checkError(err, "Creating command queue1");
 
     // Create the compute program from the source buffer
@@ -264,18 +262,20 @@ int main(int argc, char** argv)
 
     checkError(err, "Setting kernel arguments");
 
-    double stime, stime0, stime1, etime0, etime1;
-
     // Execute the kernel over the entire range of our 1d input data set
     // letting the OpenCL runtime choose the work-group size
     size_t global0 = len0;
     size_t global1 = len1;
 
-    err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, NULL);
+    double stime, etime;
+
+    stime = wtime();
+    err   = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, &ev_cpu);
     checkError(err, "Enqueueing kernels");
 
-    err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, NULL);
+    err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, &ev_gpu);
     checkError(err, "Enqueueing kernels");
+    etime = wtime();
 
     // Wait for the commands to complete before stopping the timer
     err = clFinish(queue_0);
@@ -283,8 +283,31 @@ int main(int argc, char** argv)
     err = clFinish(queue_1);
     checkError(err, "Waiting for kernel to finish");
 
-    stime = wtime() - stime;
-    printf("\nThe kernels ran in %lf seconds\n", stime);
+    err = clWaitForEvents(1, &ev_cpu);
+    checkError(err, "Waiting for kernel events to finish");
+    err = clWaitForEvents(1, &ev_gpu);
+    checkError(err, "Waiting for kernel events to finish");
+
+    size_t cpu_start, cpu_end, gpu_start, gpu_end;
+
+    err = clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_START, sizeof(cpu_start), &cpu_start,
+                                  NULL);
+    checkError(err, "Getting event info");
+    err =
+        clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_END, sizeof(cpu_end), &cpu_end, NULL);
+    checkError(err, "Getting event info");
+    err = clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_START, sizeof(gpu_start), &gpu_start,
+                                  NULL);
+    checkError(err, "Getting event info");
+    err =
+        clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_END, sizeof(gpu_end), &gpu_end, NULL);
+    checkError(err, "Getting event info");
+
+    double cpu_time = (double)(cpu_end - cpu_start) * 1e-6;
+    double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;
+
+    double time = (etime - stime) * 1e3;
+    printf("\nTOTAL: %lf ms\nCPU: %fms\nGPU: %fms\n", time, cpu_time, gpu_time);
 
     // Read back the results from the compute device
 

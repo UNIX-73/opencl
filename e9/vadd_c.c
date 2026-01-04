@@ -87,8 +87,7 @@ int main(int argc, char** argv)
 
     cl_event ev_cpu, ev_gpu;
 
-    cl_context context0;
-    cl_context context1;
+    cl_context context;
 
     cl_command_queue queue_0;
     cl_command_queue queue_1;
@@ -169,23 +168,22 @@ int main(int argc, char** argv)
     checkError(err, "Printing device output");
 
     // Create a compute context
+    cl_device_id devices[2] = {cpu, gpu};
 
-    context0 = clCreateContext(NULL, 1, &cpu, NULL, NULL, &err);
-    checkError(err, "Creating context");
-    context1 = clCreateContext(NULL, 1, &gpu, NULL, NULL, &err);
+    context = clCreateContext(NULL, 2, devices, NULL, NULL, &err);
     checkError(err, "Creating context");
 
     // Create both queues
-    queue_0 = clCreateCommandQueue(context0, cpu, CL_QUEUE_PROFILING_ENABLE, &err);
+    queue_0 = clCreateCommandQueue(context, cpu, CL_QUEUE_PROFILING_ENABLE, &err);
     checkError(err, "Creating command queue0");
-    queue_1 = clCreateCommandQueue(context1, gpu, CL_QUEUE_PROFILING_ENABLE, &err);
+    queue_1 = clCreateCommandQueue(context, gpu, CL_QUEUE_PROFILING_ENABLE, &err);
     checkError(err, "Creating command queue1");
 
     // Create the compute program from the source buffer
-    program0 = clCreateProgramWithSource(context0, 1, (const char**)&KernelSource, NULL, &err);
+    program0 = clCreateProgramWithSource(context, 1, (const char**)&KernelSource, NULL, &err);
     checkError(err, "Creating program");
 
-    program1 = clCreateProgramWithSource(context1, 1, (const char**)&KernelSource, NULL, &err);
+    program1 = clCreateProgramWithSource(context, 1, (const char**)&KernelSource, NULL, &err);
     checkError(err, "Creating program");
 
     // Build the program
@@ -222,11 +220,11 @@ int main(int argc, char** argv)
     // DEVICE 0
     size_t len0  = CPU_LEN;
     size_t size0 = sizeof(float) * CPU_LEN;
-    d_a0         = clCreateBuffer(context0, CL_MEM_READ_ONLY, size0, NULL, &err);
+    d_a0         = clCreateBuffer(context, CL_MEM_READ_ONLY, size0, NULL, &err);
     checkError(err, "Creating buffer d_a0");
-    d_b0 = clCreateBuffer(context0, CL_MEM_READ_ONLY, size0, NULL, &err);
+    d_b0 = clCreateBuffer(context, CL_MEM_READ_ONLY, size0, NULL, &err);
     checkError(err, "Creating buffer d_b0");
-    d_c0 = clCreateBuffer(context0, CL_MEM_WRITE_ONLY, size0, NULL, &err);
+    d_c0 = clCreateBuffer(context, CL_MEM_WRITE_ONLY, size0, NULL, &err);
     checkError(err, "Creating buffer d_c0");
 
     err = clEnqueueWriteBuffer(queue_0, d_a0, CL_TRUE, 0, size0, h_a, 0, NULL, NULL);
@@ -242,11 +240,11 @@ int main(int argc, char** argv)
     // DEVICE 1
     size_t len1  = GPU_LEN;
     size_t size1 = sizeof(float) * GPU_LEN;
-    d_a1         = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
+    d_a1         = clCreateBuffer(context, CL_MEM_READ_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_a1");
-    d_b1 = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
+    d_b1 = clCreateBuffer(context, CL_MEM_READ_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_b1");
-    d_c1 = clCreateBuffer(context1, CL_MEM_WRITE_ONLY, size1, NULL, &err);
+    d_c1 = clCreateBuffer(context, CL_MEM_WRITE_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_c1");
 
     // I get it from the part where the cpu ends
@@ -354,7 +352,7 @@ int main(int argc, char** argv)
     clReleaseProgram(program0);
     clReleaseKernel(ko_vadd0);
     clReleaseCommandQueue(queue_0);
-    clReleaseContext(context0);
+    clReleaseContext(context);
 
     free(h_a);
     free(h_b);

@@ -1,0 +1,892 @@
+%!PS-Adobe-3.0
+%%Title: DeviceInfo.c
+%%For: jcpichel
+%%Creator: VIM - Vi IMproved 8.0 (2016 Sep 12)
+%%CreationDate: Mon Sep 30 16:06:18 2019
+%%DocumentData: Clean8Bit
+%%Orientation: Portrait
+%%Pages: (atend)
+%%PageOrder: Ascend
+%%BoundingBox: 59 49 564 800
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-Oblique
+%%+ font Courier-BoldOblique
+%%DocumentSuppliedResources: procset VIM-Prolog 1.4 1
+%%+ encoding VIM-latin1 1.0 0
+%%Requirements: duplex collate color
+%%EndComments
+%%BeginDefaults
+%%PageResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-Oblique
+%%+ font Courier-BoldOblique
+%%PageMedia: A4
+%%EndDefaults
+%%BeginProlog
+%%BeginResource: procset VIM-Prolog
+%%BeginDocument: /usr/share/vim/vim80/print/prolog.ps
+%!PS-Adobe-3.0 Resource-ProcSet
+%%Title: VIM-Prolog
+%%Version: 1.4 1
+%%EndComments
+% Editing of this file is NOT RECOMMENDED.  You run a very good risk of causing
+% all PostScript printing from VIM failing if you do.  PostScript is not called
+% a write-only language for nothing!
+/packedarray where not{userdict begin/setpacking/pop load def/currentpacking
+false def end}{pop}ifelse/CP currentpacking def true setpacking
+/bd{bind def}bind def/ld{load def}bd/ed{exch def}bd/d/def ld
+/db{dict begin}bd/cde{currentdict end}bd
+/T true d/F false d
+/SO null d/sv{/SO save d}bd/re{SO restore}bd
+/L2 systemdict/languagelevel 2 copy known{get exec}{pop pop 1}ifelse 2 ge d
+/m/moveto ld/s/show ld /ms{m s}bd /g/setgray ld/r/setrgbcolor ld/sp{showpage}bd
+/gs/gsave ld/gr/grestore ld/cp/currentpoint ld
+/ul{gs UW setlinewidth cp UO add 2 copy newpath m 3 1 roll add exch lineto
+stroke gr}bd
+/bg{gs r cp BO add 4 -2 roll rectfill gr}bd
+/sl{90 rotate 0 exch translate}bd
+L2{
+/sspd{mark exch{setpagedevice}stopped cleartomark}bd
+/nc{1 db/NumCopies ed cde sspd}bd
+/sps{3 db/Orientation ed[3 1 roll]/PageSize ed/ImagingBBox null d cde sspd}bd
+/dt{2 db/Tumble ed/Duplex ed cde sspd}bd
+/c{1 db/Collate ed cde sspd}bd
+}{
+/nc{/#copies ed}bd
+/sps{statusdict/setpage get exec}bd
+/dt{statusdict/settumble 2 copy known{get exec}{pop pop pop}ifelse
+statusdict/setduplexmode 2 copy known{get exec}{pop pop pop}ifelse}bd
+/c{pop}bd
+}ifelse
+/ffs{findfont exch scalefont d}bd/sf{setfont}bd
+/ref{1 db findfont dup maxlength dict/NFD ed{exch dup/FID ne{exch NFD 3 1 roll
+put}{pop pop}ifelse}forall/Encoding findresource dup length 256 eq{NFD/Encoding
+3 -1 roll put}{pop}ifelse NFD dup/FontType get 3 ne{/CharStrings}{/CharProcs}
+ifelse 2 copy known{2 copy get dup maxlength dict copy[/questiondown/space]{2
+copy known{2 copy get 2 index/.notdef 3 -1 roll put pop exit}if pop}forall put
+}{pop pop}ifelse dup NFD/FontName 3 -1 roll put NFD definefont pop end}bd
+CP setpacking
+(\004)cvn{}bd
+% vim:ff=unix:
+%%EOF
+%%EndDocument
+%%EndResource
+%%BeginResource: encoding VIM-latin1
+%%BeginDocument: /usr/share/vim/vim80/print/latin1.ps
+%!PS-Adobe-3.0 Resource-Encoding
+%%Title: VIM-latin1
+%%Version: 1.0 0
+%%EndComments
+/VIM-latin1[
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quotesingle
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash
+/zero /one /two /three /four /five /six /seven
+/eight /nine /colon /semicolon /less /equal /greater /question
+/at /A /B /C /D /E /F /G
+/H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore
+/grave /a /b /c /d /e /f /g
+/h /i /j /k /l /m /n /o
+/p /q /r /s /t /u /v /w
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /periodcentered
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis]
+/Encoding defineresource pop
+% vim:ff=unix:
+%%EOF
+%%EndDocument
+%%EndResource
+%%EndProlog
+%%BeginSetup
+595 842 0 sps
+1 nc
+T F dt
+T c
+%%IncludeResource: font Courier
+/_F0 /VIM-latin1 /Courier ref
+/F0 10 /_F0 ffs
+%%IncludeResource: font Courier-Bold
+/_F1 /VIM-latin1 /Courier-Bold ref
+/F1 10 /_F1 ffs
+%%IncludeResource: font Courier-Oblique
+/_F2 /VIM-latin1 /Courier-Oblique ref
+/F2 10 /_F2 ffs
+%%IncludeResource: font Courier-BoldOblique
+/_F3 /VIM-latin1 /Courier-BoldOblique ref
+/F3 10 /_F3 ffs
+/UO -1 d
+/UW 0.5 d
+/BO -2.5 d
+%%EndSetup
+%%Page: 1 1
+%%BeginPageSetup
+sv
+0 g
+F0 sf
+%%EndPageSetup
+F1 sf
+(DeviceInfo.c                                                                  Page 1)59.5 792.4 ms
+F0 sf
+0.753 0 0 r
+(/*)59.5 772.4 ms
+( * Display Device Information)59.5 762.4 ms
+( *)59.5 752.4 ms
+( * Script to print out some information about the OpenCL devices)59.5 742.4 ms
+( * and platforms available on your system)59.5 732.4 ms
+( *)59.5 722.4 ms
+( * History: C++ version written by Tom Deakin, 2012)59.5 712.4 ms
+( *          Ported to C by Tom Deakin, July 2013)59.5 702.4 ms
+( *          Updated by Tom Deakin, October 2014)59.5 692.4 ms
+(*/)59.5 682.4 ms
+0.753 0 0.753 r
+(#include )59.5 662.4 ms
+0 0 0.753 r
+(<stdio.h>)s
+0.753 0 0.753 r
+(#include )59.5 652.4 ms
+0 0 0.753 r
+(<stdlib.h>)s
+0.753 0 0.753 r
+(#ifdef __APPLE__)59.5 632.4 ms
+(#include )59.5 622.4 ms
+0 0 0.753 r
+(<OpenCL/opencl.h>)s
+0.753 0 0.753 r
+(#include )59.5 612.4 ms
+0 0 0.753 r
+(<unistd.h>)s
+0.753 0 0.753 r
+(#else)59.5 602.4 ms
+(#include )59.5 592.4 ms
+0 0 0.753 r
+(<CL/cl.h>)s
+0.753 0 0.753 r
+(#endif)59.5 582.4 ms
+(#include )59.5 562.4 ms
+0 0 0.753 r
+("err_code.h")s
+0 0.502 0 r
+(int)59.5 542.4 ms
+0 g
+( main\()s
+0 0.502 0 r
+(void)s
+0 g
+(\))s
+({)59.5 532.4 ms
+(    cl_int err;)59.5 522.4 ms
+(    )59.5 512.4 ms
+0.753 0 0 r
+(// Find the number of OpenCL platforms)s
+0 g
+(    cl_uint num_platforms;)59.5 502.4 ms
+(    err = clGetPlatformIDs\()59.5 492.4 ms
+0 0 0.753 r
+(0)s
+0 g
+(, )s
+0 0 0.753 r
+(NULL)s
+0 g
+(, &num_platforms\);)s
+(    checkError\(err, )59.5 482.4 ms
+0 0 0.753 r
+("Finding platforms")s
+0 g
+(\);)s
+(    )59.5 472.4 ms
+0 0.502 0 r
+(if)s
+0 g
+( \(num_platforms == )s
+0 0 0.753 r
+(0)s
+0 g
+(\))s
+(    {)59.5 462.4 ms
+(        printf\()59.5 452.4 ms
+0 0 0.753 r
+("Found 0 platforms!)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(        )59.5 442.4 ms
+0 0.502 0 r
+(return)s
+0 g
+( )s
+0 0 0.753 r
+(EXIT_FAILURE)s
+0 g
+(;)s
+(    })59.5 432.4 ms
+(    )59.5 422.4 ms
+0.753 0 0 r
+(// Create a list of platform IDs)s
+0 g
+(    cl_platform_id platform[num_platforms];)59.5 412.4 ms
+(    err = clGetPlatformIDs\(num_platforms, platform, )59.5 402.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(    checkError\(err, )59.5 392.4 ms
+0 0 0.753 r
+("Getting platforms")s
+0 g
+(\);)s
+(    printf\()59.5 372.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(Number of OpenCL platforms: )s
+0.753 0 0.753 r
+(%d\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, num_platforms\);)s
+(    printf\()59.5 362.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(-------------------------)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(    )59.5 342.4 ms
+0.753 0 0 r
+(// Investigate each platform)s
+0 g
+(    )59.5 332.4 ms
+0 0.502 0 r
+(for)s
+0 g
+( \()s
+0 0.502 0 r
+(int)s
+0 g
+( i = )s
+0 0 0.753 r
+(0)s
+0 g
+(; i < num_platforms; i++\))s
+(    {)59.5 322.4 ms
+(        cl_char string[)59.5 312.4 ms
+0 0 0.753 r
+(10240)s
+0 g
+(] = {)s
+0 0 0.753 r
+(0)s
+0 g
+(};)s
+(        )59.5 302.4 ms
+0.753 0 0 r
+(// Print out the platform name)s
+0 g
+(        err = clGetPlatformInfo\(platform[i], CL_PLATFORM_NAME, )59.5 292.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(string\), &stri)s
+(ng, )59.5 282.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(        checkError\(err, )59.5 272.4 ms
+0 0 0.753 r
+("Getting platform name")s
+0 g
+(\);)s
+(        printf\()59.5 262.4 ms
+0 0 0.753 r
+("Platform: )s
+0.753 0 0.753 r
+(%s\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, string\);)s
+(        )59.5 242.4 ms
+0.753 0 0 r
+(// Print out the platform vendor)s
+0 g
+(        err = clGetPlatformInfo\(platform[i], CL_PLATFORM_VENDOR, )59.5 232.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(string\), &st)s
+(ring, )59.5 222.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(        checkError\(err, )59.5 212.4 ms
+0 0 0.753 r
+("Getting platform vendor")s
+0 g
+(\);)s
+(        printf\()59.5 202.4 ms
+0 0 0.753 r
+("Vendor: )s
+0.753 0 0.753 r
+(%s\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, string\);)s
+(        )59.5 182.4 ms
+0.753 0 0 r
+(// Print out the platform OpenCL version)s
+0 g
+(        err = clGetPlatformInfo\(platform[i], CL_PLATFORM_VERSION, )59.5 172.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(string\), &s)s
+(tring, )59.5 162.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(        checkError\(err, )59.5 152.4 ms
+0 0 0.753 r
+("Getting platform OpenCL version")s
+0 g
+(\);)s
+(        printf\()59.5 142.4 ms
+0 0 0.753 r
+("Version: )s
+0.753 0 0.753 r
+(%s\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, string\);)s
+(        )59.5 122.4 ms
+0.753 0 0 r
+(// Count the number of devices in the platform)s
+0 g
+(        cl_uint num_devices;)59.5 112.4 ms
+(        err = clGetDeviceIDs\(platform[i], CL_DEVICE_TYPE_ALL, )59.5 102.4 ms
+0 0 0.753 r
+(0)s
+0 g
+(, )s
+0 0 0.753 r
+(NULL)s
+0 g
+(, &num_devices\))s
+(;)59.5 92.4 ms
+(        checkError\(err, )59.5 82.4 ms
+0 0 0.753 r
+("Finding devices")s
+0 g
+(\);)s
+(        )59.5 62.4 ms
+0.753 0 0 r
+(// Get the device IDs)s
+0 g
+(        cl_device_id device[num_devices];)59.5 52.4 ms
+re sp
+%%PageTrailer
+%%Page: 2 2
+%%BeginPageSetup
+sv
+0 g
+F0 sf
+%%EndPageSetup
+F1 sf
+(DeviceInfo.c                                                                  Page 2)59.5 792.4 ms
+F0 sf
+(        err = clGetDeviceIDs\(platform[i], CL_DEVICE_TYPE_ALL, num_devices, device, )59.5 772.4 ms
+0 0 0.753 r
+(N)s
+(ULL)59.5 762.4 ms
+0 g
+(\);)s
+(        checkError\(err, )59.5 752.4 ms
+0 0 0.753 r
+("Getting devices")s
+0 g
+(\);)s
+(        printf\()59.5 742.4 ms
+0 0 0.753 r
+("Number of devices: )s
+0.753 0 0.753 r
+(%d\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, num_devices\);)s
+(        )59.5 722.4 ms
+0.753 0 0 r
+(// Investigate each device)s
+0 g
+(        )59.5 712.4 ms
+0 0.502 0 r
+(for)s
+0 g
+( \()s
+0 0.502 0 r
+(int)s
+0 g
+( j = )s
+0 0 0.753 r
+(0)s
+0 g
+(; j < num_devices; j++\))s
+(        {)59.5 702.4 ms
+(            printf\()59.5 692.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t)s
+0 0 0.753 r
+(-------------------------)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(            )59.5 672.4 ms
+0.753 0 0 r
+(// Get device name)s
+0 g
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_NAME, )59.5 662.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(string\), &string)s
+(, )59.5 652.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 642.4 ms
+0 0 0.753 r
+("Getting device name")s
+0 g
+(\);)s
+(            printf\()59.5 632.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Name: )s
+0.753 0 0.753 r
+(%s\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, string\);)s
+(            )59.5 612.4 ms
+0.753 0 0 r
+(// Get device OpenCL version)s
+0 g
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_OPENCL_C_VERSION, )59.5 602.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(stri)s
+(ng\), &string, )59.5 592.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 582.4 ms
+0 0 0.753 r
+("Getting device OpenCL C version")s
+0 g
+(\);)s
+(            printf\()59.5 572.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Version: )s
+0.753 0 0.753 r
+(%s\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, string\);)s
+(            )59.5 552.4 ms
+0.753 0 0 r
+(// Get Max. Compute units)s
+0 g
+(            cl_uint num;)59.5 542.4 ms
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_MAX_COMPUTE_UNITS, )59.5 532.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(cl_)s
+(uint\), &num, )59.5 522.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 512.4 ms
+0 0 0.753 r
+("Getting device max compute units")s
+0 g
+(\);)s
+(            printf\()59.5 502.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Max. Compute Units: )s
+0.753 0 0.753 r
+(%d\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, num\);)s
+(            )59.5 482.4 ms
+0.753 0 0 r
+(// Get local memory size)s
+0 g
+(            cl_ulong mem_size;)59.5 472.4 ms
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_LOCAL_MEM_SIZE, )59.5 462.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(cl_ulo)s
+(ng\), &mem_size, )59.5 452.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 442.4 ms
+0 0 0.753 r
+("Getting device local memory size")s
+0 g
+(\);)s
+(            printf\()59.5 432.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Local Memory Size: )s
+0.753 0 0.753 r
+(%llu)s
+0 0 0.753 r
+( KB)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, mem_size/)s
+0 0 0.753 r
+(1024)s
+0 g
+(\);)s
+(            )59.5 412.4 ms
+0.753 0 0 r
+(// Get global memory size)s
+0 g
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_GLOBAL_MEM_SIZE, )59.5 402.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(cl_ul)s
+(ong\), &mem_size, )59.5 392.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 382.4 ms
+0 0 0.753 r
+("Getting device global memory size")s
+0 g
+(\);)s
+(            printf\()59.5 372.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Global Memory Size: )s
+0.753 0 0.753 r
+(%llu)s
+0 0 0.753 r
+( MB)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, mem_size/\()s
+0 0 0.753 r
+(1024)s
+0 g
+(*)s
+0 0 0.753 r
+(1024)s
+0 g
+(\)\);)s
+(            )59.5 352.4 ms
+0.753 0 0 r
+(// Get maximum buffer alloc. size)s
+0 g
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_MAX_MEM_ALLOC_SIZE, )59.5 342.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(cl)s
+(_ulong\), &mem_size, )59.5 332.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 322.4 ms
+0 0 0.753 r
+("Getting device max allocation size")s
+0 g
+(\);)s
+(            printf\()59.5 312.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Max Alloc Size: )s
+0.753 0 0.753 r
+(%llu)s
+0 0 0.753 r
+( MB)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, mem_size/\()s
+0 0 0.753 r
+(1024)s
+0 g
+(*)s
+0 0 0.753 r
+(1024)s
+0 g
+(\)\);)s
+(            )59.5 292.4 ms
+0.753 0 0 r
+(// Get work-group size information)s
+0 g
+(            )59.5 282.4 ms
+0 0.502 0 r
+(size_t)s
+0 g
+( size;)s
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_MAX_WORK_GROUP_SIZE, )59.5 272.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\()s
+0 0.502 0 r
+(s)s
+(ize_t)59.5 262.4 ms
+0 g
+(\), &size, )s
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 252.4 ms
+0 0 0.753 r
+("Getting device max work-group size")s
+0 g
+(\);)s
+(            printf\()59.5 242.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Max Work-group Total Size: )s
+0.753 0 0.753 r
+(%ld\\n)s
+0 0 0.753 r
+(")s
+0 g
+(, size\);)s
+(            )59.5 222.4 ms
+0.753 0 0 r
+(// Find the maximum dimensions of the work-groups)s
+0 g
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, )59.5 212.4 ms
+0 0.502 0 r
+(siz)s
+(eof)59.5 202.4 ms
+0 g
+(\(cl_uint\), &num, )s
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 192.4 ms
+0 0 0.753 r
+("Getting device max work-item dims")s
+0 g
+(\);)s
+(            )59.5 182.4 ms
+0.753 0 0 r
+(// Get the max. dimensions of the work-groups)s
+0 g
+(            )59.5 172.4 ms
+0 0.502 0 r
+(size_t)s
+0 g
+( dims[num];)s
+(            err = clGetDeviceInfo\(device[j], CL_DEVICE_MAX_WORK_ITEM_SIZES, )59.5 162.4 ms
+0 0.502 0 r
+(sizeof)s
+0 g
+(\(d)s
+(ims\), &dims, )59.5 152.4 ms
+0 0 0.753 r
+(NULL)s
+0 g
+(\);)s
+(            checkError\(err, )59.5 142.4 ms
+0 0 0.753 r
+("Getting device max work-item sizes")s
+0 g
+(\);)s
+(            printf\()59.5 132.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t\\t)s
+0 0 0.753 r
+(Max Work-group Dims: \( ")s
+0 g
+(\);)s
+(            )59.5 122.4 ms
+0 0.502 0 r
+(for)s
+0 g
+( \()s
+0 0.502 0 r
+(size_t)s
+0 g
+( k = )s
+0 0 0.753 r
+(0)s
+0 g
+(; k < num; k++\))s
+(            {)59.5 112.4 ms
+(                printf\()59.5 102.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(%ld)s
+0 0 0.753 r
+( ")s
+0 g
+(, dims[k]\);)s
+(            })59.5 92.4 ms
+(            printf\()59.5 82.4 ms
+0 0 0.753 r
+("\))s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(            printf\()59.5 62.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\t)s
+0 0 0.753 r
+(-------------------------)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(        })59.5 52.4 ms
+re sp
+%%PageTrailer
+%%Page: 3 3
+%%BeginPageSetup
+sv
+0 g
+F0 sf
+%%EndPageSetup
+F1 sf
+(DeviceInfo.c                                                                  Page 3)59.5 792.4 ms
+F0 sf
+(        printf\()59.5 762.4 ms
+0 0 0.753 r
+(")s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(-------------------------)s
+0.753 0 0.753 r
+(\\n)s
+0 0 0.753 r
+(")s
+0 g
+(\);)s
+(    })59.5 752.4 ms
+(    )59.5 732.4 ms
+0 0.502 0 r
+(return)s
+0 g
+( )s
+0 0 0.753 r
+(EXIT_SUCCESS)s
+0 g
+(;)s
+(})59.5 722.4 ms
+re sp
+%%PageTrailer
+%%Trailer
+%%Pages: 3
+%%EOF
+

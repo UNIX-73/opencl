@@ -1,0 +1,58 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-O3",
+      "-I./C_common",
+      "-o",
+      "pi",
+      "pi.c"
+    ],
+    "directory": "/home/unab/Desktop/master/heterogeneous/opencl/e8",
+    "file": "/home/unab/Desktop/master/heterogeneous/opencl/e8/pi.c",
+    "output": "/home/unab/Desktop/master/heterogeneous/opencl/e8/pi"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-O3",
+      "-I./C_common",
+      "-o",
+      "pi",
+      "C_common/wtime.c"
+    ],
+    "directory": "/home/unab/Desktop/master/heterogeneous/opencl/e8",
+    "file": "/home/unab/Desktop/master/heterogeneous/opencl/e8/C_common/wtime.c",
+    "output": "/home/unab/Desktop/master/heterogeneous/opencl/e8/pi"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-O3",
+      "-I./C_common",
+      "-o",
+      "pi",
+      "C_common/device_info.c"
+    ],
+    "directory": "/home/unab/Desktop/master/heterogeneous/opencl/e8",
+    "file": "/home/unab/Desktop/master/heterogeneous/opencl/e8/C_common/device_info.c",
+    "output": "/home/unab/Desktop/master/heterogeneous/opencl/e8/pi"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-O3",
+      "-I./C_common",
+      "-o",
+      "pi",
+      "C_common/load_cl.c"
+    ],
+    "directory": "/home/unab/Desktop/master/heterogeneous/opencl/e8",
+    "file": "/home/unab/Desktop/master/heterogeneous/opencl/e8/C_common/load_cl.c",
+    "output": "/home/unab/Desktop/master/heterogeneous/opencl/e8/pi"
+  }
+]

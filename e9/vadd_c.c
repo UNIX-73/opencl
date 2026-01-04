@@ -41,7 +41,7 @@ extern int    output_device_info(cl_device_id);
 
 #define CPU_PERCENTAGE 0.01
 
-#define GPU_LEN ((size_t)((double)LENGTH * (double)))
+#define GPU_LEN (size_t)((double)LENGTH * (double)CPU_PERCENTAGE)
 #define CPU_LEN (LENGTH - GPU_LEN)
 
 _Static_assert(GPU_LEN <= LENGTH, "cannot set a higher value than len");

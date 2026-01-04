@@ -309,7 +309,8 @@ int main(int argc, char** argv)
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;
     double tot      = etime - stime;
 
-    printf("\nTOTAL: %lf ms\nCPU: %fms\nGPU: %fms\n", tot, cpu_time, gpu_time);
+    printf("\nTOTAL: %lf ms\nCPU(%ld): %fms\nGPU(%ld): %fms\n", tot, CPU_LEN, cpu_time, GPU_LEN,
+           gpu_time);
 
     // Read back the results from the compute device
 

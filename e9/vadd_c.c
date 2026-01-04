@@ -36,10 +36,10 @@ extern int    output_device_info(cl_device_id);
 
 //------------------------------------------------------------------------------
 
-#define TOL (0.001)   // tolerance used in floating point comparisons
+#define TOL (0.001)     // tolerance used in floating point comparisons
 #define LENGTH (102400) // length of vectors a, b, and c
 
-#define GPU_LEN (102400 * 0.5)
+#define GPU_LEN (102400 * 0.01)
 #define CPU_LEN (LENGTH - GPU_LEN)
 
 _Static_assert(GPU_LEN <= LENGTH, "cannot set a higher value than len");
@@ -305,15 +305,14 @@ int main(int argc, char** argv)
 
     double cpu_time = (double)(cpu_end - cpu_start) * 1e-6;
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;
+    double tot      = etime - stime;
 
-    double time = (etime - stime) * 1e3;
+    double max = cpu_time > gpu_time ? cpu_time : gpu_time;
 
-    if (cpu_time + gpu_time > time)
-    {
+    if (max > tot)
         printf("DID NOT RUN IN PARALLEL");
-    }
 
-    printf("\nTOTAL: %lf ms\nCPU: %fms\nGPU: %fms\n", time, cpu_time, gpu_time);
+    printf("\nTOTAL: %lf ms\nCPU: %fms\nGPU: %fms\n", tot, cpu_time, gpu_time);
 
     // Read back the results from the compute device
 

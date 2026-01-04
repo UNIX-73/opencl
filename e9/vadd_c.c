@@ -169,7 +169,7 @@ int main(int argc, char** argv)
 
     context0 = clCreateContext(NULL, 1, &cpu, NULL, NULL, &err);
     checkError(err, "Creating context");
-    context1 = clCreateContext(NULL, 2, &gpu, NULL, NULL, &err);
+    context1 = clCreateContext(NULL, 1, &gpu, NULL, NULL, &err);
     checkError(err, "Creating context");
 
     // Create both queues
@@ -210,13 +210,14 @@ int main(int argc, char** argv)
     }
 
     // Create the compute kernel from the program
-    ko_vadd0 = clCreateKernel(program0, "vadd0", &err);
+    ko_vadd0 = clCreateKernel(program0, "vadd", &err);
     checkError(err, "Creating kernel");
-    ko_vadd1 = clCreateKernel(program1, "vadd1", &err);
+    ko_vadd1 = clCreateKernel(program1, "vadd", &err);
     checkError(err, "Creating kernel");
 
     // Create the input (a, b) and output (c) arrays in device memory
     // DEVICE 0
+    size_t len0  = CPU_LEN;
     size_t size0 = sizeof(float) * GPU_LEN;
     d_a0         = clCreateBuffer(context0, CL_MEM_READ_ONLY, size0, NULL, &err);
     checkError(err, "Creating buffer d_a0");
@@ -233,15 +234,16 @@ int main(int argc, char** argv)
     err = clSetKernelArg(ko_vadd0, 0, sizeof(cl_mem), &d_a0);
     err |= clSetKernelArg(ko_vadd0, 1, sizeof(cl_mem), &d_b0);
     err |= clSetKernelArg(ko_vadd0, 2, sizeof(cl_mem), &d_c0);
-    err |= clSetKernelArg(ko_vadd0, 3, sizeof(unsigned int), &size0);
+    err |= clSetKernelArg(ko_vadd0, 3, sizeof(unsigned int), &len0);
 
     // DEVICE 1
+    size_t len1  = GPU_LEN;
     size_t size1 = sizeof(float) * CPU_LEN;
-    d_a1         = clCreateBuffer(context0, CL_MEM_READ_ONLY, size1, NULL, &err);
+    d_a1         = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_a1");
-    d_b1 = clCreateBuffer(context0, CL_MEM_READ_ONLY, size1, NULL, &err);
+    d_b1 = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_b1");
-    d_c1 = clCreateBuffer(context0, CL_MEM_WRITE_ONLY, size1, NULL, &err);
+    d_c1 = clCreateBuffer(context1, CL_MEM_WRITE_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_c1");
 
     err = clEnqueueWriteBuffer(queue_1, d_a1, CL_TRUE, 0, size1, h_a, 0, NULL, NULL);
@@ -249,10 +251,10 @@ int main(int argc, char** argv)
     err = clEnqueueWriteBuffer(queue_1, d_b1, CL_TRUE, 0, size1, h_b, 0, NULL, NULL);
     checkError(err, "Copying h_b to device at d_b");
 
-    err = clSetKernelArg(ko_vadd1, 0, sizeof(cl_mem), &d_a0);
-    err |= clSetKernelArg(ko_vadd1, 1, sizeof(cl_mem), &d_b0);
-    err |= clSetKernelArg(ko_vadd1, 2, sizeof(cl_mem), &d_c0);
-    err |= clSetKernelArg(ko_vadd1, 3, sizeof(unsigned int), &size1);
+    err = clSetKernelArg(ko_vadd1, 0, sizeof(cl_mem), &d_a1);
+    err |= clSetKernelArg(ko_vadd1, 1, sizeof(cl_mem), &d_b1);
+    err |= clSetKernelArg(ko_vadd1, 2, sizeof(cl_mem), &d_c1);
+    err |= clSetKernelArg(ko_vadd1, 3, sizeof(unsigned int), &len1);
 
     checkError(err, "Setting kernel arguments");
 
@@ -262,15 +264,17 @@ int main(int argc, char** argv)
     // letting the OpenCL runtime choose the work-group size
     err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &size0, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
-    err = clEnqueueNDRangeKernel(queue_1, ko_vadd0, 1, NULL, &size1, NULL, 0, NULL, NULL);
+    err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &size1, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
 
     // Wait for the commands to complete before stopping the timer
     err = clFinish(queue_0);
     checkError(err, "Waiting for kernel to finish");
+    err = clFinish(queue_1);
+    checkError(err, "Waiting for kernel to finish");
 
     rtime = wtime() - rtime;
-    printf("\nThe kernel ran in %lf seconds\n", rtime);
+    printf("\nThe kernels ran in %lf seconds\n", rtime);
 
     /*
     // Read back the results from the compute device

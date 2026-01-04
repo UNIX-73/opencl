@@ -39,7 +39,9 @@ extern int    output_device_info(cl_device_id);
 #define TOL (0.001)     // tolerance used in floating point comparisons
 #define LENGTH (102400) // length of vectors a, b, and c
 
-#define GPU_LEN (102400 * 0.01)
+#define CPU_PERCENTAGE 0.01
+
+#define GPU_LEN ((size_t)((double)LENGTH * (double)))
 #define CPU_LEN (LENGTH - GPU_LEN)
 
 _Static_assert(GPU_LEN <= LENGTH, "cannot set a higher value than len");

@@ -279,24 +279,18 @@ int main(int argc, char** argv)
     checkError(err, "Enqueueing kernels");
 
     // Wait for the commands to complete before stopping the timer
-    err = clFinish(queue_0);
-    checkError(err, "Waiting for kernel to finish");
-    err = clFinish(queue_1);
-    checkError(err, "Waiting for kernel to finish");
-
     err = clWaitForEvents(1, &ev_cpu);
     checkError(err, "Waiting for kernel events to finish");
     err = clWaitForEvents(1, &ev_gpu);
     checkError(err, "Waiting for kernel events to finish");
 
+    err = clFinish(queue_0);
+    checkError(err, "Waiting for kernel to finish");
+    err = clFinish(queue_1);
+    checkError(err, "Waiting for kernel to finish");
+
     size_t cpu_start, cpu_end, gpu_start, gpu_end;
 
-    err = clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_START, sizeof(cpu_start), &cpu_start,
-                                  NULL);
-    checkError(err, "Getting event info");
-    err =
-        clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_END, sizeof(cpu_end), &cpu_end, NULL);
-    checkError(err, "Getting event info");
     err = clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_START, sizeof(gpu_start), &gpu_start,
                                   NULL);
     checkError(err, "Getting event info");
@@ -304,6 +298,13 @@ int main(int argc, char** argv)
         clGetEventProfilingInfo(ev_gpu, CL_PROFILING_COMMAND_END, sizeof(gpu_end), &gpu_end, NULL);
     checkError(err, "Getting event info");
     etime = wtime();
+
+    err = clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_START, sizeof(cpu_start), &cpu_start,
+                                  NULL);
+    checkError(err, "Getting event info");
+    err =
+        clGetEventProfilingInfo(ev_cpu, CL_PROFILING_COMMAND_END, sizeof(cpu_end), &cpu_end, NULL);
+    checkError(err, "Getting event info");
 
     double cpu_time = (double)(cpu_end - cpu_start) * 1e-6;
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;

@@ -252,7 +252,6 @@ int main(int argc, char** argv)
     // I get it from the part where the cpu ends
     float* ha_1_start = h_a + len0;
     float* hb_1_start = h_b + len0;
-    float* hc_1_start = h_a + len0;
     err = clEnqueueWriteBuffer(queue_1, d_a1, CL_TRUE, 0, size1, ha_1_start, 0, NULL, NULL);
     checkError(err, "Copying h_a to device at d_a");
     err = clEnqueueWriteBuffer(queue_1, d_b1, CL_TRUE, 0, size1, hb_1_start, 0, NULL, NULL);
@@ -296,6 +295,7 @@ int main(int argc, char** argv)
         exit(1);
     }
 
+    float* hc_1_start = h_c + len0;
     err = clEnqueueReadBuffer(queue_1, d_c1, CL_TRUE, 0, size1, hc_1_start, 0, NULL, NULL);
     if (err != CL_SUCCESS)
     {

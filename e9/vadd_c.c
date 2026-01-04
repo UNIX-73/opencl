@@ -186,7 +186,7 @@ int main(int argc, char** argv)
     checkError(err, "Creating program");
 
     // Build the program
-    err = clBuildProgram(program0, 2, &cpu, NULL, NULL, NULL);
+    err = clBuildProgram(program0, 1, &cpu, NULL, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         size_t len;
@@ -197,7 +197,7 @@ int main(int argc, char** argv)
         printf("%s\n", buffer);
         return EXIT_FAILURE;
     }
-    err = clBuildProgram(program1, 2, &cpu, NULL, NULL, NULL);
+    err = clBuildProgram(program1, 1, &cpu, NULL, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         size_t len;
@@ -218,7 +218,7 @@ int main(int argc, char** argv)
     // Create the input (a, b) and output (c) arrays in device memory
     // DEVICE 0
     size_t len0  = CPU_LEN;
-    size_t size0 = sizeof(float) * GPU_LEN;
+    size_t size0 = sizeof(float) * CPU_LEN;
     d_a0         = clCreateBuffer(context0, CL_MEM_READ_ONLY, size0, NULL, &err);
     checkError(err, "Creating buffer d_a0");
     d_b0 = clCreateBuffer(context0, CL_MEM_READ_ONLY, size0, NULL, &err);
@@ -238,7 +238,7 @@ int main(int argc, char** argv)
 
     // DEVICE 1
     size_t len1  = GPU_LEN;
-    size_t size1 = sizeof(float) * CPU_LEN;
+    size_t size1 = sizeof(float) * GPU_LEN;
     d_a1         = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
     checkError(err, "Creating buffer d_a1");
     d_b1 = clCreateBuffer(context1, CL_MEM_READ_ONLY, size1, NULL, &err);
@@ -262,9 +262,12 @@ int main(int argc, char** argv)
 
     // Execute the kernel over the entire range of our 1d input data set
     // letting the OpenCL runtime choose the work-group size
-    err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &size0, NULL, 0, NULL, NULL);
+    size_t global0 = len0;
+    size_t global1 = len1;
+
+    err = clEnqueueNDRangeKernel(queue_0, ko_vadd0, 1, NULL, &global0, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
-    err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &size1, NULL, 0, NULL, NULL);
+    err = clEnqueueNDRangeKernel(queue_1, ko_vadd1, 1, NULL, &global1, NULL, 0, NULL, NULL);
     checkError(err, "Enqueueing kernels");
 
     // Wait for the commands to complete before stopping the timer

@@ -309,11 +309,6 @@ int main(int argc, char** argv)
     double gpu_time = (double)(gpu_end - gpu_start) * 1e-6;
     double tot      = etime - stime;
 
-    double max = cpu_time > gpu_time ? cpu_time : gpu_time;
-
-    if (max > tot)
-        printf("DID NOT RUN IN PARALLEL");
-
     printf("\nTOTAL: %lf ms\nCPU: %fms\nGPU: %fms\n", tot, cpu_time, gpu_time);
 
     // Read back the results from the compute device

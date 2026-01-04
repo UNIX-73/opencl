@@ -197,14 +197,14 @@ int main(int argc, char** argv)
         printf("%s\n", buffer);
         return EXIT_FAILURE;
     }
-    err = clBuildProgram(program1, 1, &cpu, NULL, NULL, NULL);
+    err = clBuildProgram(program1, 1, &gpu, NULL, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         size_t len;
         char   buffer[2048];
 
         printf("Error: Failed to build program executable!\n%s\n", err_code(err));
-        clGetProgramBuildInfo(program1, cpu, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
+        clGetProgramBuildInfo(program1, gpu, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
         printf("%s\n", buffer);
         return EXIT_FAILURE;
     }
